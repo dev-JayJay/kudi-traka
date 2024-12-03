@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    background-color: #181919;
+}
+.header span {
+    color: #C9D50D;
+    font-weight: 500;
+    font-size: 20px;
+    font-family: segoe UI;
+}
+.header .links {
+    display: flex;
+    width: 40%;
+    justify-content: space-evenly;
+    background-color: transparent;
+}
+.links a {
+    color: #C9D50D;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: none;
+}
+.links button {
+    background-color: transparent;
+    color: #C9D50D;
+    font-size: 20px;
+    font-weight: 400;
+    text-decoration: none;
+    border: none;
+}
+/* .check {
+    color: red;
+} */
