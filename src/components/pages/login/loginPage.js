@@ -19,8 +19,8 @@ export const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
 
     if (!formData.username || !formData.password) {
       enqueueSnackbar({

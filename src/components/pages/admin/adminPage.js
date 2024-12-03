@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import './admin.css'
 
+// const socket = io("https://kudi-traka-backend-b4ccdze83-jay-jays-projects.vercel.app");
 const socket = io("http://localhost:5000");
 
 const AdminChat = () => {
