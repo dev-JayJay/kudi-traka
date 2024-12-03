@@ -114,7 +114,7 @@ import { enqueueSnackbar } from "notistack";
 
 // const socket = io("https://kudi-traka-backend.vercel.app/");
 // const socket = io("http://localhost:5000");
-const socket = io("http://127.0.0.1:4040");
+const socket = io("http://54.236.60.140:5000");
 
 
 export const ChatWithMisa = ({ authenticated }) => {
