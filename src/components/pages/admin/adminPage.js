@@ -3,8 +3,8 @@ import io from "socket.io-client";
 import './admin.css'
 
 // const socket = io("https://kudi-traka-backend-b4ccdze83-jay-jays-projects.vercel.app");
-const socket = io("http://54.236.60.140:5000");
 // const socket = io("https://kudi-traka-backend.vercel.app/");
+const socket = io("https://kudi.aibauchi.com.ng");
 
 const AdminChat = () => {
   const [messages, setMessages] = useState([]);
