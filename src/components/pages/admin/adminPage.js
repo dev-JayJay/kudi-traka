@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import './admin.css'
 
 // const socket = io("https://kudi-traka-backend-b4ccdze83-jay-jays-projects.vercel.app");
-const socket = io("http://localhost:5000");
+const socket = io("http://127.0.0.1:4040");
 // const socket = io("https://kudi-traka-backend.vercel.app/");
 
 const AdminChat = () => {
