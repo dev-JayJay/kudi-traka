@@ -112,7 +112,9 @@ import io from "socket.io-client";
 import "./chat.css";
 import { enqueueSnackbar } from "notistack";
 
+// const socket = io("https://kudi-traka-backend.vercel.app/");
 const socket = io("http://localhost:5000");
+
 
 export const ChatWithMisa = ({ authenticated }) => {
   const [role, setRole] = useState(authenticated ? "user" : "admin");
@@ -138,7 +140,7 @@ export const ChatWithMisa = ({ authenticated }) => {
       socket.off("new_user_message");
       socket.off("receive_response");
     };
-  }, [role]);
+  }, []); // role
 
   useEffect(() => {
     const username = localStorage.getItem('username');

@@ -4,6 +4,7 @@ import './admin.css'
 
 // const socket = io("https://kudi-traka-backend-b4ccdze83-jay-jays-projects.vercel.app");
 const socket = io("http://localhost:5000");
+// const socket = io("https://kudi-traka-backend.vercel.app/");
 
 const AdminChat = () => {
   const [messages, setMessages] = useState([]);
