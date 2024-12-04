@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import './admin.css'
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ const AdminChat = () => {
   const [messages, setMessages] = useState([]);
   const [response, setResponse] = useState("");
 
+  const newMessageSound = useRef(new Audio("/messgeTone.wav"));
+
   useEffect(() => {
     // Register the admin when the component mounts
     socket.emit("register_admin");
@@ -20,6 +22,7 @@ const AdminChat = () => {
     socket.on("new_user_message", (data) => {
       console.log("Received message from user:", data);
       setMessages((prev) => [...prev, data]);
+      newMessageSound.current.play();
     });
 
     return () => {
@@ -41,6 +44,7 @@ const AdminChat = () => {
         ...prev,
         { text: response, sender: "admin", recipient: lastMessage.socketId },
       ]);
+      newMessageSound.current.play();
       setResponse("");
     } else {
       alert("No active users to respond to.");
