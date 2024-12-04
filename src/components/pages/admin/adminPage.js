@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import './admin.css'
+import { useNavigate } from "react-router-dom";
 
 // const socket = io("https://kudi-traka-backend-b4ccdze83-jay-jays-projects.vercel.app");
 // const socket = io("https://kudi-traka-backend.vercel.app/");
 const socket = io("https://kudi.aibauchi.com.ng");
 
 const AdminChat = () => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [response, setResponse] = useState("");
 
@@ -44,6 +46,10 @@ const AdminChat = () => {
       alert("No active users to respond to.");
     }
   };
+
+  if (!localStorage.getItem('authenticated')) {
+    navigate(`/login`);
+  }
 
   return (
     <div style={{ padding: "20px" }}>

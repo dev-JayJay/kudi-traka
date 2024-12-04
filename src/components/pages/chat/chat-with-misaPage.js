@@ -111,6 +111,7 @@ import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import "./chat.css";
 import { enqueueSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 // const socket = io("https://kudi-traka-backend.vercel.app/");
 // const socket = io("http://localhost:5000");
@@ -118,11 +119,14 @@ const socket = io("https://kudi.aibauchi.com.ng");
 
 
 export const ChatWithMisa = ({ authenticated }) => {
+  const navigate = useNavigate();
   const [role, setRole] = useState(authenticated ? "user" : "admin");
   const [userId, setUserId] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef(null);
+
+  const newMessageSound = useRef(new Audio("/messgeTone.wav"));
 
   useEffect(() => {
     if (role === "admin") {
@@ -131,10 +135,12 @@ export const ChatWithMisa = ({ authenticated }) => {
 
     socket.on("new_user_message", (data) => {
       setMessages((prev) => [...prev, { ...data, sender: "user" }]);
+      newMessageSound.current.play();
     });
 
     socket.on("receive_response", (data) => {
       setMessages((prev) => [...prev, { ...data, sender: "admin" }]);
+      newMessageSound.current.play();
     });
 
     return () => {
@@ -171,13 +177,19 @@ export const ChatWithMisa = ({ authenticated }) => {
     if (role === "user") {
       socket.emit("user_message", { userId, message: newMessage });
       setMessages((prev) => [...prev, { ...messageData, sender: "user" }]);
+      newMessageSound.current.play();
     } else if (role === "admin") {
       socket.emit("admin_message", { message: newMessage });
       setMessages((prev) => [...prev, { ...messageData, sender: "admin" }]);
+      newMessageSound.current.play();
     }
 
     setNewMessage("");
   };
+
+  if (!localStorage.getItem('authenticated')) {
+    navigate(`/login`);
+  }
 
   return (
     <div className="allWrapper">
