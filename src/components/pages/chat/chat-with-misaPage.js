@@ -117,16 +117,16 @@ import { useNavigate } from "react-router-dom";
 // const socket = io("http://localhost:5000");
 const socket = io("https://kudi.aibauchi.com.ng");
 
-
 export const ChatWithMisa = ({ authenticated }) => {
   const navigate = useNavigate();
   const [role, setRole] = useState(authenticated ? "user" : "admin");
   const [userId, setUserId] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [messagePercentage, setMessagePercentage] = useState(100);
   const messagesEndRef = useRef(null);
 
-  const newMessageSound = useRef(new Audio("/messgeTone.wav"));
+  const newMessageSound = useRef(new Audio("/notificationBack.wav"));
 
   useEffect(() => {
     if (role === "admin") {
@@ -150,7 +150,7 @@ export const ChatWithMisa = ({ authenticated }) => {
   }, []); // role
 
   useEffect(() => {
-    const username = localStorage.getItem('username');
+    const username = localStorage.getItem("username");
     setUserId(username);
     // Scroll to the bottom of the message container
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -164,8 +164,8 @@ export const ChatWithMisa = ({ authenticated }) => {
     socket.emit("register", { userId });
     alert(`Registered as user with ID: ${userId}`);
     enqueueSnackbar({
-      variant: 'success',
-      message: `Registred with ID ${userId}`
+      variant: "success",
+      message: `Registred with ID ${userId}`,
     });
   };
 
@@ -178,6 +178,11 @@ export const ChatWithMisa = ({ authenticated }) => {
       socket.emit("user_message", { userId, message: newMessage });
       setMessages((prev) => [...prev, { ...messageData, sender: "user" }]);
       newMessageSound.current.play();
+
+      setMessagePercentage((prevPercentage) => prevPercentage - 5);
+      console.log(
+        `User send a message here is his new percentage ${messagePercentage}%`
+      );
     } else if (role === "admin") {
       socket.emit("admin_message", { message: newMessage });
       setMessages((prev) => [...prev, { ...messageData, sender: "admin" }]);
@@ -187,49 +192,120 @@ export const ChatWithMisa = ({ authenticated }) => {
     setNewMessage("");
   };
 
-  if (!localStorage.getItem('authenticated')) {
+  if (!localStorage.getItem("authenticated")) {
     navigate(`/login`);
   }
 
   return (
     <div className="allWrapper">
-      <h1>Chat with MISA</h1>
+      {/* <h1>Chat with MISA</h1> */}
       {role === "user" && (
-        <div className="userIdWrapper">
-          <label>
-            {/* USER: */}
-             {userId}
-            {/* <input
+        <div className="infoNav">
+          <div className="userIdWrapper">
+            <label>
+              {/* USER: */}
+              {userId}
+              {/* <input
               type="text"
               value={userId}
               // onChange={(e) => setUserId(e.target.value)}
               placeholder="Enter your unique ID"
               style={{ marginLeft: "10px" }}
             /> */}
-          </label>
-          {/* <button onClick={handleRegisterUser} style={{ marginLeft: "10px" }}>
+            </label>
+            {/* <button onClick={handleRegisterUser} style={{ marginLeft: "10px" }}>
             Register
-          </button> */}
+            </button> */}
+          </div>
+          <h1>Chat with MISA</h1>
+          <div className="barContainer">
+            <div className="barWapper">
+              <div
+                className="bar"
+                style={{
+                  height: `${messagePercentage}%`,
+                }}
+              >
+                <p
+                  className="line"
+                  style={{
+                    top: "30px",
+                    display: messagePercentage <= 0 ? "none" : "block",
+                  }}
+                ></p>
+                <p
+                  className="line"
+                  style={{
+                    top: "50px",
+                    display: messagePercentage <= 0 ? "none" : "block",
+                  }}
+                ></p>
+                <p
+                  className="line"
+                  style={{
+                    top: "70px",
+                    display: messagePercentage <= 0 ? "none" : "block",
+                  }}
+                ></p>
+              </div>
+            </div>
+            <span>{`${messagePercentage}%`}</span>
+          </div>
         </div>
       )}
-        {/* <h2>Messages</h2> */}
+      {/* <h2>Messages</h2> */}
       <div className="messageWrapper">
         <div className="messageList">
           {messages.map((msg, index) => (
             <div key={index} className={`message ${msg.sender}`}>
-              <strong>{msg.sender === 'admin' ? 'Misa AI :' : '' }</strong> {msg.text}
+              <strong>{msg.sender === "admin" ? "Misa AI :" : ""}</strong>{" "}
+              {msg.text}
             </div>
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <div className="inputWrapper" style={{margin:`10px 0 0 0`}}>
-          <input
-            type="text"
-            placeholder="Type a message"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-          />
-          <button onClick={handleSendMessage}>Send</button>
+        <div className="inputWrapper" style={{ margin: `10px 0 0 0` }}>
+          {messagePercentage === 0 ? (
+            <div>
+              <p
+                style={{
+                  color: `#fff`,
+                  fontWeight: `500`,
+                  textAlign: `center`,
+                  padding: `10px 0`,
+                }}
+              >
+                you have exhausted your message credit click the button below to
+                purchase new credit!
+              </p>
+              <button
+                style={{
+                  color: `#fff`,
+                  fontWeight: `600`,
+                  fontSize: `15px`,
+                  width: `30%`,
+                  backgroundColor: `#7f8505`,
+                  cursor: `pointer`,
+                  borderRadius: `10px`,
+                }}
+                onClick={()=> {
+                  navigate(`/buy-credit`);
+                }}
+              >
+                purchase chart credit
+              </button>
+            </div>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Type a message"
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+              />
+              <button onClick={handleSendMessage}>Send</button>
+            </>
+          )}
         </div>
       </div>
     </div>

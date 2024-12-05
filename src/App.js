@@ -16,6 +16,7 @@ import { useState } from "react";
 import AdminChat from "./components/pages/admin/adminPage";
 
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
+import { BuyCredit } from "./components/pages/payment/buy-credit";
 
 function App() {
   function ApplicationRoutes() {
@@ -29,6 +30,7 @@ function App() {
         element: <ChatWithMisa authenticated={authenticated} />,
       },
       { path: "/admin", element: <AdminChat /> },
+      { path: "/buy-credit", element: <BuyCredit /> },
     ]);
     return routes;
   }
