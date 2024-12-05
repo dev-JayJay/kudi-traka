@@ -63,7 +63,7 @@ function App() {
           <header className="header">
             <span>KudiTraka</span>
             <div className="links">
-              <Link to={`/transaction`}>Transaction</Link>
+              <Link to={`/buy-credit`}>Buy Misa Credits</Link>
               <Link to={`/chat-with-misa`}>Chat with MISA</Link>
               {authenticated ? (
                 <button onClick={handleLogout}>

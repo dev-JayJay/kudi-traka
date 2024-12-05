@@ -292,7 +292,7 @@ export const ChatWithMisa = ({ authenticated }) => {
                   navigate(`/buy-credit`);
                 }}
               >
-                purchase chart credit
+                Buy Misa Credits
               </button>
             </div>
           ) : (

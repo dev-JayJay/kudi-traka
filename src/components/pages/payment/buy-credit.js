@@ -53,7 +53,7 @@ export const BuyCredit = () => {
                 window.location.reload();
               }}
             >
-              continue to chart
+              continue to chat
             </button>
           </div>
         </Modal>
