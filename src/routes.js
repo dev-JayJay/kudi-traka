@@ -6,6 +6,7 @@ import { RegisterPage } from "./components/pages/register/registerPage";
 import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 import AdminChat from "./components/pages/admin/adminPage";
 import { BuyCredit } from "./components/pages/payment/buy-credit";
+import { PaymentPlan } from "./components/pages/payment/payment-plan";
 
 function ApplicationRoutes() {
   const routes = useRoutes([
@@ -15,6 +16,7 @@ function ApplicationRoutes() {
     { path: "/home", element: <HomePage /> },
     { path: "/admin", element: <AdminChat /> },
     { path: "/buy-credit", element: <BuyCredit /> },
+    { path: "/payment-plan", element: <PaymentPlan /> },
     { path: "/chat-with-misa", element: <ChatWithMisa /> },
   ]);
   return routes;

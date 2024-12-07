@@ -17,6 +17,7 @@ import AdminChat from "./components/pages/admin/adminPage";
 
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { BuyCredit } from "./components/pages/payment/buy-credit";
+import { PaymentPlan } from "./components/pages/payment/payment-plan";
 
 function App() {
   function ApplicationRoutes() {
@@ -30,6 +31,7 @@ function App() {
         element: <ChatWithMisa authenticated={authenticated} />,
       },
       { path: "/admin", element: <AdminChat /> },
+      { path: "/payment-plan", element: <PaymentPlan /> },
       { path: "/buy-credit", element: <BuyCredit /> },
     ]);
     return routes;

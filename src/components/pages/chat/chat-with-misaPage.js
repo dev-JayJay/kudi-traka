@@ -112,13 +112,18 @@ import io from "socket.io-client";
 import "./chat.css";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { planAmount } from "../../redux/payment-planSlices";
 
 // const socket = io("https://kudi-traka-backend.vercel.app/");
 // const socket = io("http://localhost:5000");
 const socket = io("https://kudi.aibauchi.com.ng");
 
 export const ChatWithMisa = ({ authenticated }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const amount = useSelector((state) => state.planAmount.amount);
+  console.log(`checking the plan amount ${amount}`);
   const [role, setRole] = useState(authenticated ? "user" : "admin");
   const [userId, setUserId] = useState("");
   const [messages, setMessages] = useState([]);
@@ -129,6 +134,9 @@ export const ChatWithMisa = ({ authenticated }) => {
   const newMessageSound = useRef(new Audio("/notificationBack.wav"));
 
   useEffect(() => {
+    if (amount > 0) {
+      setMessagePercentage(amount);
+    }
     if (role === "admin") {
       socket.emit("register_admin");
     }
@@ -147,7 +155,7 @@ export const ChatWithMisa = ({ authenticated }) => {
       socket.off("new_user_message");
       socket.off("receive_response");
     };
-  }, []); // role
+  }, [amount]); // role
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -289,7 +297,8 @@ export const ChatWithMisa = ({ authenticated }) => {
                   borderRadius: `10px`,
                 }}
                 onClick={()=> {
-                  navigate(`/buy-credit`);
+                  dispatch(planAmount(0));
+                  navigate(`/payment-plan`);
                 }}
               >
                 Buy Misa Credits
