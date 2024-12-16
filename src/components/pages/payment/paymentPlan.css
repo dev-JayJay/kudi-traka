@@ -62,3 +62,15 @@
   background-color: #838c03;
   cursor: pointer;
 }
+
+
+@media only screen and (max-width: 767px) {
+  .paymentwrapper {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+  }
+  .plancontainer {
+    width: 75%;
+  }
+}

@@ -108,7 +108,7 @@ export const BuyCredit = () => {
           </div>
         )}
         {paymentType === "bank" && (
-          <div className="formWrapper">
+          <div className="formWrapper credits">
             <div className="formText">
               <p>Buy credit with bank card </p>
             </div>

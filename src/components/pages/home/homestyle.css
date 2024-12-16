@@ -42,3 +42,20 @@
 /* .check {
     color: red;
 } */
+
+@media only screen and (max-width: 767px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .header .links {
+        flex-direction: column;
+        width: 100%;
+    }
+    .header .links a {
+        padding: 10px 0;
+    }
+    .links button {
+        padding: 5px 0;
+    }
+}

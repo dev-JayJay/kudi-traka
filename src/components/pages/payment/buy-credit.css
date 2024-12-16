@@ -139,3 +139,27 @@
     background-color: #C9D50D;
     margin-bottom: 10px;
   }
+
+  /* mobile */
+  @media only screen and (max-width: 767px) {
+    .formWrapper {
+        width: 90%;
+        /* margin: 70px auto 0 auto; */
+        margin: 90px auto 0 auto;
+    }
+    .credits {
+        width: 90%;
+        /* margin: 70px auto 0 auto; */
+        margin: 180px auto 0 auto;
+    }
+    .inputContainer {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .payment_buttons { 
+        width: 80%;
+    }
+    .modalWrappper button {
+        padding: 15px 0 0 0;
+    }
+}
